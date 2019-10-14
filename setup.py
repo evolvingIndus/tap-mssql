@@ -13,13 +13,13 @@ setup(
         "singer-python==5.1.1",
         "backoff==1.3.2",
         "pendulum==1.2.0",
-        "pymssql==2.1.4"
+        "pyodbc==4.0.27"
     ],
     entry_points="""
     [console_scripts]
     tap-mssql=tap_mssql:main
     """,
-    packages=["tap_mssql"],
+    packages=["tap_mssql", 'tap_mssql.sync_strategies'],
     package_data = {
         "schemas": ["tap_mssql/schemas/*.json"]
     },

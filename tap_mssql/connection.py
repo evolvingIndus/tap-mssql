@@ -2,14 +2,16 @@
 
 import backoff
 import _mssql
+# import pymssql
+import pyodbc
 
 import singer
-import ssl
+# import ssl
 
 LOGGER = singer.get_logger()
 
 DEFAULT_PORT = 1433
-DEFAULT_TDS_VERSION = "7.0"
+DEFAULT_TDS_VERSION = "7.3"
 DEFAULT_CHARSET = "utf8"
 
 @backoff.on_exception(backoff.expo,
@@ -17,8 +19,13 @@ DEFAULT_CHARSET = "utf8"
                       max_tries=5,
                       factor=2)
 def connect_with_backoff(connection):
-    conn = connection.connect()
-    conn.execute_scalar("SELECT 1 + 1")
+    server = connection.args["server"]
+    database = connection.args['database']
+    username = connection.args["user"]
+    password = connection.args["password"]
+    driver = '{ODBC Driver 17 for SQL Server}'
+    conn = pyodbc.connect(
+        'DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
 
     return conn
 
