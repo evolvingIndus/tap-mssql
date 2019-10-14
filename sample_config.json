@@ -1,5 +1,6 @@
 {
-  "username": "my_username",
-  "password": "my_password",
-  "start_date": "2017-01-01T00:00:00Z"
+    "server": "xxxxxx.database.windows.net",
+    "user": "USERNAME",
+    "password": "PASSWORD",
+    "database": "DATABASE"
 }
